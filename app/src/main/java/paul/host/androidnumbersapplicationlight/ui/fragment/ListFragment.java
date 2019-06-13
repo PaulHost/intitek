@@ -66,7 +66,7 @@ public class ListFragment extends BaseFragment {
 
                 @Override
                 public void onError(@NonNull Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
+                    Log.e(getClass().getSimpleName(), e.getMessage(), e);
                 }
             });
         }

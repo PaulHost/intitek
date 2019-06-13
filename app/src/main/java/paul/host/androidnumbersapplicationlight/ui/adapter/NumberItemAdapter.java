@@ -45,6 +45,12 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
         if (!items.isEmpty()) {
             NumberItem item = items.get(position);
             holder.textView.setText(item.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.goToDetails(item.getName());
+                }
+            });
         }
     }
 
