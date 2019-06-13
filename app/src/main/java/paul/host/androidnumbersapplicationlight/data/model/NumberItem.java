@@ -34,6 +34,15 @@ public final class NumberItem {
         return text;
     }
 
+    @Override
+    public String toString() {
+        return "NumberItem{" +
+                "name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -47,23 +56,24 @@ public final class NumberItem {
         }
 
         @NonNull
-        public Builder name(@NonNull String name) {
+        public Builder name(@Nullable String name) {
             this.name = name;
             return this;
         }
 
         @NonNull
-        public Builder image(@NonNull String image) {
+        public Builder image(@Nullable String image) {
             this.image = image;
             return this;
         }
 
         @NonNull
-        public Builder text(@NonNull String text) {
+        public Builder text(@Nullable String text) {
             this.text = text;
             return this;
         }
 
+        @NonNull
         public NumberItem build() {
             return new NumberItem(
                     name == null ? "" : name,
