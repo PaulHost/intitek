@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android Numbers Application (Light)</string>
+    <string name="description">A number image</string>
 </resources>
