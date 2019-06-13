@@ -14,6 +14,10 @@ import paul.host.androidnumbersapplicationlight.data.model.NumberItem;
 public class ApiDataSource {
     private static final String TEST_URL = "http://dev.tapptic.com/test/json.php";
     private static final String NAME_URL = TEST_URL + "?name=%s";
+    public static final ApiDataSource INSTANCE = new ApiDataSource();
+
+    private ApiDataSource() {
+    }
 
     @NonNull
     public void getNumbers(final @NonNull HttpCallback<List<NumberItem>> callback) {
@@ -86,9 +90,16 @@ public class ApiDataSource {
 
     @NonNull
     private NumberItem getNumber(@NonNull JSONObject json) throws JSONException {
-        return NumberItem.builder().name(json.getString("name"))
-                .image(json.getString("image"))
-                .text(json.getString("text"))
-                .build();
+        NumberItem.Builder builder = NumberItem.builder();
+        if (json.has("name")) {
+            builder.name(json.getString("name"));
+        }
+        if (json.has("image")) {
+            builder.image(json.getString("image"));
+        }
+        if (json.has("text")) {
+            builder.text(json.getString("text"));
+        }
+        return builder.build();
     }
 }
