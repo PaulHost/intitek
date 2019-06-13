@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Android Numbers Application (Light)</string>
     <string name="description">A number image</string>
-    <string name="hello_details_fragment">Hello details fragment</string>
 </resources>

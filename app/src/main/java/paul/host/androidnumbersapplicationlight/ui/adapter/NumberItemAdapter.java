@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,9 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
         if (!items.isEmpty()) {
             NumberItem item = items.get(position);
             holder.textView.setText(item.getName());
+            Picasso.get()
+                   .load(item.getImage())
+                   .into(holder.imageView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

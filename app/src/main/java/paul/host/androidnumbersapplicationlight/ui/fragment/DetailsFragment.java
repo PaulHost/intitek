@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import paul.host.androidnumbersapplicationlight.R;
 import paul.host.androidnumbersapplicationlight.data.api.ApiDataSource;
@@ -20,6 +23,12 @@ public class DetailsFragment extends Fragment {
 
     @NonNull
     private TextView textView;
+
+    @NonNull
+    private TextView nameView;
+
+    @NonNull
+    private ImageView imageView;
 
     @Nullable
     private String numberName;
@@ -45,6 +54,8 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_details, container, false);
         textView = v.findViewById(R.id.details_number_text);
+        nameView = v.findViewById(R.id.details_number_name);
+        imageView = v.findViewById(R.id.details_number_image);
         return v;
     }
 
@@ -59,6 +70,10 @@ public class DetailsFragment extends Fragment {
                         @Override
                         public void run() {
                             textView.setText(numberItem.getText());
+                            nameView.setText(numberItem.getName());
+                            Picasso.get()
+                                   .load(numberItem.getImage())
+                                   .into(imageView);
                         }
                     });
                 }
