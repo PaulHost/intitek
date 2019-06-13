@@ -3,6 +3,7 @@ package paul.host.androidnumbersapplicationlight.ui.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,12 +51,11 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
             Picasso.get()
                    .load(item.getImage())
                    .into(holder.imageView);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.goToDetails(item.getName());
-                }
+            holder.itemView.setOnClickListener(v -> {
+                holder.clickedColor();
+                listener.goToDetails(item.getName());
             });
+
         }
     }
 
@@ -69,16 +69,79 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnFocusChangeListener, View.OnTouchListener {
         @NonNull
         ImageView imageView;
         @NonNull
         TextView textView;
 
-        public ViewHolder(@NonNull View view) {
+        final int transparent;
+        final int green;
+        final int blue;
+        final int white;
+        final int black;
+        final int red;
+
+        ViewHolder(@NonNull View view) {
             super(view);
             imageView = view.findViewById(R.id.number_image);
             textView = view.findViewById(R.id.number_name);
+
+            transparent = view.getResources().getColor(R.color.transparent);
+            green = view.getResources().getColor(R.color.colorGreen);
+            blue = view.getResources().getColor(R.color.colorBlue);
+            white = view.getResources().getColor(R.color.colorWhite);
+            black = view.getResources().getColor(R.color.colorBlack);
+            red = view.getResources().getColor(R.color.colorRed);
+
+            defaultColor();
+
+            view.setFocusable(true);
+            view.setOnFocusChangeListener(this);
+            view.setOnTouchListener(this);
+        }
+
+        @Override
+        public void onFocusChange(@NonNull View v, boolean hasFocus) {
+            if (hasFocus) {
+                focusableColor();
+            }
+        }
+
+        @Override
+        public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+               touchColor();
+            }
+            return false;
+        }
+
+        void setColor(int background, int text) {
+            itemView.setBackgroundColor(background);
+            textView.setTextColor(text);
+        }
+
+        void focusableColor() {
+            setColor(green, white);
+            returnColor();
+        }
+
+        void touchColor() {
+            setColor(blue, white);
+            returnColor();
+        }
+
+        void clickedColor() {
+            setColor(red, white);
+            returnColor();
+        }
+
+        void defaultColor() {
+            setColor(transparent, black);
+        }
+
+        void returnColor() {
+            itemView.postDelayed(this::defaultColor, 1000);
         }
     }
 }
