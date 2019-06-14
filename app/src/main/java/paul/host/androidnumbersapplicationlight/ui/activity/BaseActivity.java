@@ -14,15 +14,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 .commit();
     }
 
-    public void addFragment(@NonNull Fragment fragment) {
+    public void replaceFragment(int container, @NonNull Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .add(getContainer(), fragment)
-                .commit();
-    }
-
-    public void removeFragment(@NonNull Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .remove(fragment)
+                .replace(container, fragment)
                 .commit();
     }
 
@@ -44,5 +38,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected boolean isBackStackEmpty() {
         return getSupportFragmentManager().getBackStackEntryCount() == 0;
+    }
+
+    protected boolean isBackStackMoreThanOne() {
+        return getSupportFragmentManager().getBackStackEntryCount() > 1;
+
     }
 }

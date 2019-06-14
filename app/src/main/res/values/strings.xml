@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Android Numbers Application (Light)</string>
     <string name="description">A number image</string>
+    <string name="layout_large_land_tag">layout-large-land-tag</string>
 </resources>
