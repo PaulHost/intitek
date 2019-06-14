@@ -55,7 +55,7 @@ public class ListFragment extends BaseFragment {
 
             ApiDataSource.INSTANCE.getNumbers(new HttpCallback<List<NumberItem>>() {
                 @Override
-                public void onSuccess(@NonNull List<NumberItem> numberItems) {
+                public void onSuccess(@NonNull final List<NumberItem> numberItems) {
                     recyclerView.post(new Runnable() {
                         @Override
                         public void run() {

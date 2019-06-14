@@ -26,7 +26,7 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
     private final NavigationListener listener;
 
     public NumberItemAdapter(@NonNull NavigationListener listener) {
-        this(listener, new ArrayList<>());
+        this(listener, new ArrayList<NumberItem>());
     }
 
     public NumberItemAdapter(@NonNull NavigationListener listener,
@@ -46,14 +46,17 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
     @Override
     public void onBindViewHolder(final @NonNull ViewHolder holder, int position) {
         if (!items.isEmpty()) {
-            NumberItem item = items.get(position);
+            final NumberItem item = items.get(position);
             holder.textView.setText(item.getName());
             Picasso.get()
                    .load(item.getImage())
                    .into(holder.imageView);
-            holder.itemView.setOnClickListener(v -> {
-                holder.clickedColor();
-                listener.goToDetails(item.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.clickedColor();
+                    listener.goToDetails(item.getName());
+                }
             });
 
         }
@@ -111,7 +114,7 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
         @Override
         public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               touchColor();
+                touchColor();
             }
             return false;
         }
@@ -141,7 +144,12 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
         }
 
         void returnColor() {
-            itemView.postDelayed(this::defaultColor, 1000);
+            itemView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    defaultColor();
+                }
+            }, 1000);
         }
     }
 }

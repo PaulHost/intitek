@@ -65,7 +65,7 @@ public class DetailsFragment extends Fragment {
         if (numberName != null) {
             ApiDataSource.INSTANCE.getNumberInfo(numberName, new HttpCallback<NumberItem>() {
                 @Override
-                public void onSuccess(@NonNull NumberItem numberItem) {
+                public void onSuccess(@NonNull final NumberItem numberItem) {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
